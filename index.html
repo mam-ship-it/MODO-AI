@@ -1361,21 +1361,23 @@ const SH_END_LOCAL="Please review the answers with your instructor.";
 function shLocal(i,c){if(!(i>=0&&i<=2)||!shlMatch(i,c))return null;return[shlAnte,shlLabor,shlPost][i]()}
 
 let shPend=null;
+/* Variation: every press gets its own seed so students never receive the same canned wording */
+function shVarSeed(){const a=new Uint32Array(1);try{crypto.getRandomValues(a)}catch(e){a[0]=Math.floor(Math.random()*4294967295)}return a[0].toString(36)}
+function shVarRule(seed){return "\n\nANSWER VARIATION (seed "+seed+"): several different but equally correct answers exist for this sheet and each student must receive their own version. Keep EVERY clinical fact exactly as in the scenario, but vary the free-text parts using this seed: choose different valid wording, a different set of 3 to 5 nursing diagnoses supported by the scenario (still in priority order), different goals, different valid interventions and rationales, and different health-education points and phrasing. Do not copy a standard textbook template word for word.\n"}
+/* last resort only: fixed model answer, used when the AI cannot be reached */
+async function shLocalShow(o,lt,c){const parts=[];for(const g of lt)parts.push(g.pt?await shPtProc(null,g.t,c,false):g.t);
+ shShow(o,"(Offline model answer: the AI could not be reached, so the standard answer is shown.)\n\n"+parts.join("\n\n")+"\n\n"+SH_END_LOCAL)}
 async function shGo(resume){if(shBusy)return;const S=SHEETS[+document.getElementById("sh").value],c=document.getElementById("shc").value.trim(),o=document.getElementById("sho");if(!c)return;
- {const lt=shLocal(+document.getElementById("sh").value,c);
-  if(lt){shPend=null;shBusy=true;o.hidden=false;
-   try{const parts=[];for(const g of lt)parts.push(g.pt?await shPtProc(null,g.t,c,false):g.t);
-    shShow(o,parts.join("\n\n")+"\n\n"+SH_END_LOCAL)}catch(e){shShow(o,aiErrMsg(e))}finally{shBusy=false}
-   return}}
+ const ref=shLocal(+document.getElementById("sh").value,c),seed=(resume===true&&shPend&&shPend.seed)||shVarSeed();
  const B=false,ch=shChunks(S),sid=document.getElementById("sh").value;let done="",from=0;
  if(resume===true&&shPend&&shPend.sid===sid&&shPend.c===c){done=shPend.done;from=shPend.k}
  shPend=null;shBusy=true;o.hidden=false;shShow(o,done?done+"\n\nThinking…":"Thinking…");
  let k=from;
- try{const sm=await claude.use("sample");if(!sm){shShow(o,aiErrMsg(null));return}
+ try{const sm=await claude.use("sample");if(!sm){if(ref){await shLocalShow(o,ref,c)}else shShow(o,aiErrMsg(null));return}
   for(;k<ch.length;k++){const p=ch[k],last=k===ch.length-1,pre=done?done+"\n\n":"";
    const prog=B?`⏳ جاري حل الجزء ${k+1} من ${ch.length}…`:`⏳ Solving part ${k+1} of ${ch.length}…`;
    shShow(o,pre+prog);
-   const r=await sm(SH_BASE+(p.pt?SH_PT:SH_SEC+shRules(S,p,c))+(last?SH_END:"")+"\n\nSHEET: "+S.name+" (part "+(k+1)+" of "+ch.length+")\n"+p.head+"\n"+p.lines+"\n\nSCENARIO:\n"+c,{cache:false,modelTier:"complex",
+   const r=await sm(SH_BASE+(p.pt?SH_PT:SH_SEC+shRules(S,p,c)+shVarRule(seed))+(last?SH_END:"")+"\n\nSHEET: "+S.name+" (part "+(k+1)+" of "+ch.length+")\n"+p.head+"\n"+p.lines+"\n\nSCENARIO:\n"+c,{cache:false,modelTier:"complex",
     onText:x=>{shShow(o,pre+x.text)},
     onWait:n=>{if(n>0)shShow(o,pre+(B?`⏳ Gemini المجاني مزحوم لحظيًا… هكمّل تلقائيًا بعد ${n} ث (الجزء ${k+1} من ${ch.length})`:`⏳ Free Gemini is busy… continuing automatically in ${n}s (part ${k+1} of ${ch.length})`));else shShow(o,pre+prog)}});
    let tx=(r&&r.text)||"";if(!tx)throw{code:"empty"};
@@ -1383,8 +1385,9 @@ async function shGo(resume){if(shBusy)return;const S=SHEETS[+document.getElement
    if(r.truncated)tx+=B?"\n⚠️ الجزء ده اتقطع. اضغط «حلّ الشيت» تاني أو قصّر السيناريو.":"\n⚠️ This part was cut off. Press Solve again or shorten the scenario.";
    done=pre+tx;shShow(o,done)}
  }catch(e){
+  if(ref&&!done&&!(e&&e.code==="cancelled")){try{await shLocalShow(o,ref,c);return}catch(e2){}}
   shShow(o,(done?done+"\n\n":"")+aiErrMsg(e));
-  if(e&&e.code!=="cancelled"&&e.code!=="invalid_key"&&k<ch.length){shPend={sid:sid,c:c,k:k,done:done};
+  if(e&&e.code!=="cancelled"&&e.code!=="invalid_key"&&k<ch.length){shPend={sid:sid,c:c,k:k,done:done,seed:seed};
    o.insertAdjacentHTML("beforeend",`<div class="ctl" style="margin-top:10px"><button class="btn" type="button" onclick="shGo(true)">▶ ${B?`كمّل من الجزء ${k+1}${k>0?" (اللي اتحل اتحفظ)":""}`:`Continue from part ${k+1}${k>0?" (finished parts are kept)":""}`}</button></div>`)}
  }finally{shBusy=false}}
 DATA[2].facts=[{en:"Objectives",ar:"الأهداف",l:["Confirm pregnancy","Estimate gestational age","Determine lie, position, presenting part, attitude and engagement","Assess fetal well-being (movements, FHR)","Detect deviations from normal"]},{en:"When",ar:"إمتى",l:["Every antenatal assessment at 20 weeks of pregnancy","Before FHR auscultation / CTG","Before vaginal examination"]},{en:"Contraindications (none absolute – extreme caution)",ar:"موانع الفحص (مفيش مطلق – بحذر شديد)",c:"red",l:["Placental abruption","Preterm labor","Placenta previa","Severe (acute) abdominal pain"]}];
