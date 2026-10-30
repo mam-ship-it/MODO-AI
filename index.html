@@ -4578,5 +4578,310 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"){const w=document.ge
 function vlabTab(){try{const u=URL.createObjectURL(new Blob([VLAB],{type:"text/html"}));const w=window.open(u,"_blank");if(!w)alert("المتصفح منع فتح التبويب الجديد — اسمح بالنوافذ المنبثقة (Pop-ups) للموقع ده وجرّب تاني.")}catch(e){alert("تعذّر فتح التبويب: "+e.message)}}
 window.addEventListener("message",e=>{if(e.data==="vlab-full")vlabBig();else if(e.data==="vlab-newtab")vlabTab()});
 </script>
+<!-- ===== MIDTERM FINAL REVIEW (added) ===== -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playpen+Sans+Arabic:wght@400;600;700&family=Playpen+Sans:wght@400;600;700&display=swap" media="print" onload="this.media='all'">
+<style>
+#mtw{position:fixed;inset:0;z-index:99990;display:none;align-items:center;justify-content:center;padding:14px;background:#050f2acc;backdrop-filter:blur(6px);font-family:Cairo,system-ui,sans-serif}
+#mtw.on{display:flex}
+.mtc{background:var(--card,#fff);color:var(--ink,#0d2247);border-radius:22px;max-width:460px;width:100%;padding:28px 22px;text-align:center;box-shadow:0 20px 60px #0008;animation:mtp .4s}
+.mtc .em{font-size:3rem}.mtc h2{margin:6px 0;font-size:1.4rem}.mtc p{margin:6px 0 18px;color:var(--mute,#5d7190)}
+.mtb{background:linear-gradient(135deg,#34a3ff,#1565c0);color:#fff;border:0;border-radius:99px;padding:12px 26px;font:800 1rem Cairo,sans-serif;box-shadow:0 8px 20px #1e6fd966;cursor:pointer}
+.mtb.alt{background:transparent;color:var(--mute,#5d7190);box-shadow:none;font-weight:600;display:block;margin:10px auto 0}
+.mtm{background:var(--bg,#eef3fb);color:var(--ink,#0d2247);border-radius:20px;width:min(980px,100%);height:min(92vh,900px);display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px #000a;animation:mtp .35s}
+.mth{display:flex;align-items:center;gap:10px;padding:12px 16px;background:linear-gradient(135deg,#0f4bb0,#081d52);color:#fff}
+.mth b{flex:1;font-size:1.05rem}.mtx{background:#ffffff26;border:0;color:#fff;width:34px;height:34px;border-radius:50%;font-size:1.1rem;cursor:pointer}
+.mtt{display:flex;gap:6px;padding:8px 12px;background:var(--card,#fff);border-bottom:1px solid var(--line,#dbe5f3)}
+.mtt button{flex:1;border:0;border-radius:12px;padding:10px;background:transparent;font:700 .95rem Cairo,sans-serif;color:var(--ink,#0d2247);cursor:pointer}
+.mtt button.on{background:linear-gradient(135deg,#2ea0ff,#1565c0);color:#fff}
+.mtb2{flex:1;overflow:auto;padding:14px}
+.mtl{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.mtl button{border:1px solid var(--line,#dbe5f3);background:var(--card,#fff);color:var(--ink,#0d2247);border-radius:99px;padding:6px 14px;font:700 .85rem Cairo,sans-serif;cursor:pointer}
+.mtl button.on{background:#ffd23f;border-color:#ffae1a;color:#3a2600}
+.pap{background:#fffdf3;color:#10278a;border-radius:8px;padding:18px 22px 26px;margin:0 auto 20px;max-width:780px;box-shadow:0 6px 22px #0003;border-inline-start:4px solid #ef9a9a;font-family:'Playpen Sans Arabic',Cairo,sans-serif;font-weight:500;font-size:calc(1.08rem*var(--fs,1));line-height:2.1;direction:rtl;text-align:start;unicode-bidi:isolate;word-spacing:.05em}
+.pap .lt{unicode-bidi:isolate;font-family:'Playpen Sans Arabic',Cairo,sans-serif;font-size:.97em;letter-spacing:.2px}
+.pap mark .lt{background:none}
+.fsz{margin-inline-start:auto;display:flex;gap:6px}.fsz button{width:38px;height:34px;padding:0}
+.pap h3{margin:0 0 6px;font-weight:700;font-size:1.5rem;color:#c62828;line-height:1.6}
+.pap h3 small{display:block;font-size:.95rem;color:#10278a;font-weight:500;direction:ltr;text-align:right}
+.pap .sec{margin:22px 0 6px;font-weight:700;font-size:1.2rem;color:#0b6b43;border-bottom:3px double #0b6b4399;line-height:1.7;padding-bottom:2px}
+.pap p{margin:6px 0}
+.pap ul,.pap ol{margin:6px 0;padding-inline-start:26px}.pap li{margin:4px 0}
+.pap mark{background:linear-gradient(transparent 40%,#ffe94fcc 40%);color:inherit;padding:0 2px}
+.pap .en{direction:ltr;unicode-bidi:isolate;display:block;text-align:left}
+.pap li:has(>.en){list-style-position:inside;direction:ltr;text-align:left}
+.pap .why{background:#e8f6ee;border:2px dashed #0b6b43;border-radius:10px;padding:6px 12px;margin:10px 0;color:#0b4d31;font-size:1rem}
+.pap .key{background:#ffe9e9;border:2px solid #c62828;border-radius:10px;padding:6px 12px;margin:10px 0;color:#8e1a1a}
+.pap .ph{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
+.pap figure{flex:1 1 220px;margin:0;background:#fff;padding:8px 8px 4px;border:1px solid #ddd;box-shadow:0 3px 10px #0003;transform:rotate(-.6deg);text-align:center;position:relative}
+.pap figure:nth-child(even){transform:rotate(.7deg)}
+.pap figure:before{content:"";position:absolute;top:-9px;left:35%;width:70px;height:18px;background:#ffe08acc;transform:rotate(-3deg)}
+.pap figure img{width:100%;max-height:300px;object-fit:contain;cursor:zoom-in;display:block;background:#fff}
+.pap figcaption{font-size:.8rem;color:#555;line-height:1.5;padding:2px}
+.pap table{border-collapse:collapse;width:100%;font-size:.98rem;line-height:1.7;direction:ltr;margin:8px 0}.pap td,.pap th{border:2px solid #10278a66;padding:4px 8px;text-align:start;unicode-bidi:plaintext}.pap th{color:#c62828;background:#fff3cf}
+.pap .tw{overflow-x:auto}
+#mtz{position:fixed;inset:0;z-index:99999;background:#000d;display:none;align-items:center;justify-content:center;padding:10px}#mtz.on{display:flex}#mtz img{max-width:100%;max-height:100%;background:#fff;border-radius:8px}
+@keyframes mtp{from{transform:scale(.94);opacity:0}}
+.qz{max-width:700px;margin:0 auto}.qz .qq{background:var(--card,#fff);border:1px solid var(--line,#dbe5f3);border-radius:16px;padding:16px}.qz h4{margin:0 0 10px;font-size:1.05rem}
+.qo{display:block;width:100%;text-align:start;background:transparent;color:inherit;border:1px solid var(--line,#dbe5f3);border-radius:10px;padding:9px 12px;margin:6px 0;font:600 .95rem Cairo,sans-serif;cursor:pointer}
+.qo.ok{border-color:var(--ok,#1f8a4c);background:color-mix(in srgb,var(--ok,#1f8a4c) 18%,transparent)}.qo.bad{border-color:var(--bad,#c2372f);background:color-mix(in srgb,var(--bad,#c2372f) 15%,transparent)}
+.qb{height:8px;background:var(--line,#dbe5f3);border-radius:8px;overflow:hidden;margin-bottom:10px}.qb i{display:block;height:100%;background:linear-gradient(90deg,#34a3ff,#26c281)}
+.mgl{display:flex;gap:4px;background:#ffffff22;border-radius:99px;padding:3px}.mgl button{border:0;background:transparent;color:#fff;border-radius:99px;padding:4px 12px;font:700 .8rem Cairo,sans-serif;cursor:pointer}.mgl button.on{background:#ffd23f;color:#3a2600}
+.pap.ltr{direction:ltr;text-align:left;font-family:'Playpen Sans','Playpen Sans Arabic',Cairo,sans-serif;border-inline-start:0;border-left:4px solid #ef9a9a}
+.pap.ltr .en{text-align:left}
+.trq{overflow:hidden;display:flex;flex-direction:column;padding:10px 12px}
+.trh{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:linear-gradient(135deg,#6a11cb,#2575fc);color:#fff;border-radius:14px;padding:10px 16px;margin-bottom:10px}
+.trt{flex:1;min-width:220px}.trt b{display:block;font-size:1.05rem;line-height:1.5}.trt small{opacity:.9}
+.trm{display:flex;gap:6px}.trm button{border:2px solid #fff8;background:#ffffff22;color:#fff;border-radius:99px;padding:6px 16px;font:800 .85rem Cairo,sans-serif;cursor:pointer}.trm button.on{background:#fff;color:var(--c);border-color:#fff}
+.trw{flex:1;min-height:0;display:grid;grid-template-columns:minmax(300px,390px) 1fr;gap:12px;direction:ltr}
+.bs,.pp{min-height:0;overflow:auto;border-radius:14px;box-shadow:0 4px 16px #0002}
+.bs{display:flex;flex-direction:column;background:linear-gradient(180deg,#f4f8ff,#fff6fb);border:2px solid var(--m)}
+.bsh{display:flex;justify-content:space-between;align-items:center;background:var(--m);color:#fff;padding:8px 14px;position:sticky;top:0;z-index:2}.bsh b{font-size:1.2rem}.bsh span{background:#fff3;border-radius:99px;padding:1px 12px;font-weight:700}
+.bsf{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;padding:8px 10px;font:700 .7rem Cairo,sans-serif;color:#456}.bsf label{display:block}.bsf input{width:100%;border:0;border-bottom:2px solid var(--m);background:transparent;font:600 .8rem Cairo,sans-serif;color:#123;padding:2px 0;outline:0}
+.bsg{display:grid;grid-template-columns:repeat(3,1fr);gap:4px 8px;padding:4px 8px 8px;flex:1}
+.br{display:flex;align-items:center;gap:3px;margin:3px 0}.bn{flex:none;min-width:24px;height:24px;border:0;border-radius:6px;background:var(--c);color:#fff;font:800 .72rem Cairo,sans-serif;cursor:pointer}
+.bb{width:23px;height:23px;border-radius:50%;border:2px solid var(--c);background:#fff;color:var(--c);font:800 .62rem Cairo,sans-serif;padding:0;cursor:pointer;transition:.12s}.bb:hover{background:color-mix(in srgb,var(--c) 18%,#fff)}
+.bb.sel{background:var(--c);color:#fff;box-shadow:0 0 0 2px #fff,0 0 0 4px var(--c)}.bb.ok{background:#27ae60;border-color:#27ae60;color:#fff;box-shadow:none}.bb.bad{background:#eb5757;border-color:#eb5757;color:#fff;box-shadow:none}.bb.key{border-color:#27ae60;color:#27ae60;box-shadow:0 0 0 3px #27ae6044}.bb:disabled{cursor:default}
+.bsb{position:sticky;bottom:0;background:#fffe;border-top:2px dashed var(--m);padding:8px 10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}.cnt{flex:1;font:700 .85rem Cairo,sans-serif;color:#345}
+.mtb.sub{background:linear-gradient(135deg,#f2994a,#eb5757);box-shadow:0 6px 16px #eb575766;padding:10px 16px;font-size:.9rem;width:100%}.mtb.sm{padding:7px 14px;font-size:.8rem}.mtb.alt2{background:linear-gradient(135deg,#27ae60,#2f80ed)}.sc2{flex:1;text-align:center}.sc2 b{font-size:1.5rem;color:#2575fc}.sc2 small{margin-inline-start:6px;font-weight:700;color:#789}
+.pp{background:#fffdf5;color:#1c2540;font-family:Georgia,'Times New Roman',serif;font-size:1.02rem;line-height:1.6;padding:0 0 18px;border:2px solid #e3d9b8;scroll-behavior:smooth}
+.pph{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:center;background:var(--m);color:#fff;padding:8px 16px;font-family:Cairo,sans-serif}.pph small{display:block;opacity:.9}.pph span{background:#fff3;border-radius:99px;padding:2px 12px;font-weight:800}
+.lvh{margin:16px 14px 6px;padding:4px 14px;border-radius:99px;background:var(--c);color:#fff;font:800 .9rem Cairo,sans-serif;display:inline-block}
+.qn{margin:8px 14px;padding:10px 12px;border-radius:10px;border-inline-start:5px solid #d9d2b6;background:#fff;box-shadow:0 1px 4px #0001}.qn.ans{border-color:#2f80ed;background:#f2f7ff}.qn.okq{border-color:#27ae60;background:#effaf3}.qn.badq{border-color:#eb5757;background:#fff1f1}.qn.hid{display:none}
+.qh{display:flex;gap:10px;align-items:flex-start}.qb2{flex:none;min-width:30px;height:30px;border-radius:50%;display:grid;place-items:center;color:#fff;font:800 .85rem Cairo,sans-serif}.qt{font-weight:700;flex:1}
+.ls{display:inline-block;margin-inline-start:8px;font:700 .65rem Cairo,sans-serif;color:var(--c);border:1px solid var(--c);border-radius:99px;padding:0 8px;vertical-align:middle}
+.op{display:flex;gap:8px;margin:3px 0 3px 38px;padding:2px 8px;border-radius:8px}.op b{flex:none}.op.ok{background:#27ae6030;outline:2px solid #27ae60}.op.bad{background:#eb575730;outline:2px solid #eb5757}
+.pp .ar{display:block;direction:rtl;text-align:right;color:#7d3cb5;font:600 .82rem/1.6 Cairo,sans-serif;font-weight:600}.vd2{margin:6px 0 0 38px;font:700 .85rem Cairo,sans-serif}
+.rs{display:flex;gap:16px;align-items:center;margin:12px 14px;padding:12px 16px;border-radius:14px;background:linear-gradient(135deg,#eef5ff,#fdf0ff);border:2px solid #cdd9ff;font-family:Cairo,sans-serif}
+.ring{flex:none;width:84px;height:84px;border-radius:50%;background:conic-gradient(var(--c) calc(var(--p)*1%),#dde 0);display:grid;place-items:center;position:relative}.ring:before{content:"";position:absolute;inset:9px;background:#fff;border-radius:50%}.ring span{position:relative;font-weight:800;font-size:1.1rem}
+.rsd h4{margin:0}.rsd p{margin:2px 0 6px}.chs{display:flex;gap:5px;flex-wrap:wrap}.chs span{background:var(--c);color:#fff;border-radius:99px;padding:1px 10px;font-size:.72rem;font-weight:700}
+.vmb{display:flex;gap:6px;flex-wrap:wrap}.vmb button{border:2px solid #fff8;background:#ffffff22;color:#fff;border-radius:10px;padding:5px 10px;font:700 .75rem Cairo,sans-serif;cursor:pointer}.vmb button.on{background:#ffd23f;color:#3a2600;border-color:#ffd23f}
+.mpt{display:flex;gap:6px;margin:0 auto 8px;width:100%;max-width:440px}.mpt button{flex:1;border:2px solid #cfd8ff;background:#fff;color:#234;border-radius:12px;padding:8px;font:800 .85rem Cairo,sans-serif;cursor:pointer}.mpt button.on{background:linear-gradient(135deg,#2575fc,#6a11cb);color:#fff;border-color:transparent}
+.trq.lap{overflow:auto}.trq.lap .trw{min-width:780px}
+.trq.mob .trw{display:block;width:100%;max-width:440px;margin:0 auto;position:relative}
+.trq.mob .trw>.bs,.trq.mob .trw>.pp{height:100%}
+.trq.mob .trw[data-p=q]>.bs,.trq.mob .trw[data-p=a]>.pp{display:none}
+.trq.mob.frame .trw{border:7px solid #1c2540;border-radius:28px;overflow:hidden;box-shadow:0 10px 30px #0005}
+.trq.mob .trt b{font-size:.92rem}.trq.mob .trt small{display:none}
+.trq.mob .bb{width:30px;height:30px;font-size:.78rem}.trq.mob .bn{min-width:30px;height:30px;font-size:.8rem}.trq.mob .br{gap:5px;margin:5px 0}.trq.mob .bsg{padding:6px 10px}
+.trq.mob .op,.trq.mob .vd2{margin-left:0}.trq.mob .pp{font-size:1rem}
+button.op{width:100%;text-align:start;font:inherit;border:0;background:transparent;color:inherit;cursor:pointer;padding:6px 8px}button.op.sel2{background:#2f80ed26;outline:2px solid #2f80ed}
+figure.qi{margin:6px 0 6px 38px}.qi img{max-width:280px;max-height:210px;display:block;border:1px solid #ddd;border-radius:8px;background:#fff;cursor:zoom-in}.trq.mob figure.qi{margin-left:0}#mtw.mtfull{padding:0}#mtw.mtfull .mtm{width:100vw;height:100vh;max-height:none;border-radius:0}
+</style>
+<div id="mtw" role="dialog" aria-modal="true" aria-label="المراجعة النهائية"></div><div id="mtz"><img alt=""></div>
+<script>
+(()=>{
+const $=s=>document.querySelector(s),W=$('#mtw'),Z=$('#mtz');
+const TK="[A-Za-z0-9]+(?:[-–'’\\/.°%+][A-Za-z0-9]+)*%?",LR=new RegExp(TK+"(?:[ ]+"+TK+")*","g");
+const bd=s=>s.replace(LR,m=>/[A-Za-z]/.test(m)?'<bdi dir="ltr" class="lt">'+m+'</bdi>':m);
+const hl=s=>bd(String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')).replace(/\*\*(.+?)\*\*/g,'<mark>$1</mark>');
+let fs=1;
+const L=[{k:2,n:'🤰 الفحص البطني',e:'🤰 Abdominal Exam',t:'Abdominal Examination during Pregnancy'},{k:8,n:'🔬 الفحص المهبلي',e:'🔬 Vaginal Exam',t:'Vaginal Examination during Labor'},{k:10,n:'👶 Immediate Baby Care',e:'👶 Newborn Care',t:'Immediate Care of Newborn'}];
+let cur=0,tab='sum',lg='mix';
+const sec=t=>`<div class="sec">${t}</div>`,ln=l=>lg==='en'?l.e:l.n;
+function lesson(i){const E=lg==='en',n=L[i].k,d=DATA[n];if(!d)return '<p>Content not available.</p>';
+let h=`<div class="pap${E?' ltr':''}"><h3>${E?L[i].t:L[i].n.slice(3)}<small>${E?'Midterm final review':L[i].t}</small></h3>`;
+if(d.lesson)h+=sec(E?'📖 General explanation':'📖 الشرح العام')+`<p>${hl(E?d.lesson.en:(d.lesson.ar||d.lesson.en))}</p>`;
+const mu=d.must&&d.must[E?0:1];if(mu)h+=sec(E?'🎯 Must know':'🎯 لازم تحفظها')+`<ol>${mu.map(x=>`<li>${hl(x)}</li>`).join('')}</ol>`;
+(d.facts||[]).forEach(f=>{h+=sec('📌 '+(E?f.en:(f.ar||f.en)))+`<ul>${(f.l||[]).map(x=>`<li><span class="en">${hl(x)}</span></li>`).join('')}</ul>`});
+(d.tbl||[]).forEach(u=>{h+=sec('📊 '+(E?u.t.en:u.t.ar))+`<div class="tw"><table><tr>${u.h[0].map((x,c)=>`<th>${x}${!E&&u.h[1][c]?' · '+u.h[1][c]:''}</th>`).join('')}</tr>${u.r.map(r=>`<tr>${r.map(c=>`<td>${hl(c)}</td>`).join('')}</tr>`).join('')}</table></div>`});
+if(d.v&&d.v.length){h+=sec(E?'🩺 Step by step (with book images)':'🩺 الخطوات بالتفصيل (مع صور الكتاب)');
+d.v.forEach((s,k)=>{h+=`<div class="sec" style="font-size:1.1rem;color:#c62828;border:0">${k+1}) ${hl(s[0])}</div><p>${hl(E?s[1]:(s[2]||s[1]))}</p>`;
+const x=(d.x||[])[k];if(x){if(x.b)h+=`<ul>${x.b.map(z=>`<li><span class="en">${hl(z)}</span></li>`).join('')}</ul>`;if(x.k)h+=`<div class="key">⭐ <b>${E?'Key point:':'نقطة مهمة:'}</b> ${hl(E?x.k[0]:(x.k[1]||x.k[0]))}</div>`}
+const im=(Array.isArray(s[3])?s[3]:[]).filter(m=>window.IMG&&IMG[m]);
+if(im.length)h+=`<div class="ph">${im.map(m=>`<figure><img src="${IMG[m]}" alt="${hl(s[0])}" loading="lazy"><figcaption>${E?'Image from the book – ':'صورة من الكتاب – '}${hl(s[0])}</figcaption></figure>`).join('')}</div>`;
+const w=E?s[4]:s[5];if(w)h+=`<div class="why">💡 <b>${E?'Why do we do this?':'ليه بنعمل كده؟'}</b> ${hl(w)}</div>`})}
+return h+'</div>'}
+function sum(){return `<div class="mtl">${L.map((l,i)=>`<button class="${i==cur?'on':''}" data-l="${i}">${ln(l)}</button>`).join('')}<span class="fsz"><button data-fs="-1" aria-label="A-">A−</button><button data-fs="1" aria-label="A+">A+</button></span></div>`+lesson(cur)}
+const EXTRA=[
+["The abdominal examination is done at about:",["12 weeks","20 weeks","28 weeks","Only at term"],1],
+["The fundus reaches the symphysis pubis at:",["12 weeks","20 weeks","28 weeks","36 weeks"],0],
+["The fundus reaches the umbilicus at:",["12 weeks","20 weeks","30 weeks","40 weeks"],1],
+["The fundus reaches the xiphisternum at:",["12 weeks","20 weeks","36 weeks","42 weeks"],2],
+["During the abdominal examination the head of the bed is raised by:",["5°","15°","45°","90°"],1],
+["The normal fetal heart rate is:",["60–100 b/m","110–160 b/m","170–200 b/m","200–240 b/m"],1],
+["The Pinard fetoscope is placed on the fetal:",["Anterior shoulder","Buttocks","Foot","Posterior skull"],0],
+["Pawlik's grip is used after:",["12 weeks","20 weeks","28 weeks","36 weeks"],3],
+["The fundal grip determines the fetal:",["Lie and presentation","Heart rate","Weight","Sex"],0],
+["The lateral grip is used to locate the fetal:",["Back (position)","Buttocks only","Umbilical cord","Placenta"],0],
+["Pawlik's grip assesses:",["Engagement of the presenting part","Amniotic fluid volume","Fetal sex","Maternal pulse"],0],
+["During the abdominal examination the nurse stands on the woman's:",["Left side","Right side","Head end","Foot end"],1],
+["Linea nigra is:",["A dark line from the umbilicus to the symphysis pubis","A scar of cesarean section","Pink stretch marks","A fetal movement"],0],
+["Striae gravidarum are:",["Pink stretch marks","A dark midline","Fetal kicks","Bloody show"],0],
+["With a tape measure, fundal height in cm approximately equals the weeks of gestation, give or take:",["0–1 cm","2–3 cm","6–8 cm","10 cm"],1],
+["Fetal heart sounds can be detected by Doppler from about:",["6 weeks","10–12 weeks","24 weeks","32 weeks"],1],
+["The fetal heart should be auscultated for:",["5 seconds","15 seconds","A full minute","10 minutes"],2],
+["Why does the nurse feel the mother's pulse while auscultating?",["To avoid mistaking it for the fetal heart rate","To check temperature","To measure fundal height","To confirm the lie"],0],
+["The abdominal examination needs extreme caution in:",["Normal pregnancy","Placenta previa","Mild anemia","Mild edema"],1],
+["Before the abdominal examination the woman should:",["Eat a meal","Empty her bladder","Lie prone","Stand up"],1],
+["In the fundal grip the fetal buttocks feel:",["Soft and irregular","Hard and round","Smooth and broad","Very small"],0],
+["The fetal back feels:",["Broad and smooth","Small and irregular","Soft and large","Hard and round"],0],
+["A uterus that is longer than it is broad suggests:",["Longitudinal lie","Transverse lie","Twin pregnancy only","Placenta previa"],0],
+["Fundal height larger than dates may be due to:",["Polyhydramnios or twins","IUGR","Oligohydramnios","Maternal dehydration"],0],
+["Fundal height smaller than dates may be due to:",["Twins","Polyhydramnios","IUGR or oligohydramnios","Macrosomia"],2]];
+const LV=[['Easy','سهل','#27ae60'],['Medium','متوسط','#f2994a'],['Hard','صعب','#eb5757'],['Elite','للفائقين','#8e44ad'],['Book images','صور من الكتاب','#1e88e5']],LC=['#2f80ed','#27ae60','#f2994a','#9b51e0'],MC=['#2f80ed','#27ae60','#9b51e0'],MN=['A','B','C'];
+const rnd=s=>()=>{s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
+const shuf=(a,r)=>{for(let i=a.length-1;i>0;i--){const j=r()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const esc=s=>String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+function pool(){return L.map((l,i)=>{let src=((DATA[l.k]||{}).q||[]).slice();if(i===0)src=src.concat(EXTRA.filter(x=>/Doppler/.test(x[0])).map(x=>[x[0],0,x[1],0,x[2]]));
+return src.filter(q=>q&&q[2]&&q[2].length>=3).map(q=>{const o=q[2].slice(),oa=q[3]?q[3].slice():null,n3=o.length===3;if(n3){o.push('None of the above');oa&&oa.push('ولا واحد مما سبق')}
+const ln=o.reduce((a,x)=>a+x.length,0)/o.length,d=q[0].length+ln*.6+(/\d/.test(o.join(''))?14:0)+(/\b(not|except|false|incorrect)\b/i.test(q[0])?25:0);
+return{t:q[0],ta:q[1]||'',o,oa,c:q[4],n3,l:i,d}}).sort((a,b)=>a.d-b.d)})}
+const models={};
+/* NEW BANK: [lesson 0=Abdominal 1=Vaginal 2=Newborn, level 1=Medium 2=Hard 3=Elite 4=Book image, model 0=A 1=B 2=C, stem, CORRECT first, w1, w2, w3, imgKey?] */
+const NEW=[
+[0,1,0,"A woman at 28 weeks has a tape fundal height of 31 cm. This is:","Normal (within ± 2–3 cm)","Larger than dates; suspect twins","Smaller than dates; suspect IUGR","Abnormal; refer immediately"],
+[1,1,0,"Which finding on inspecting the vulva suggests ruptured membranes?","A wet, glistening perineum","Varicose veins","Pink stretch marks","A cesarean section scar"],
+[2,1,0,"Why does every newborn receive vitamin K?","Newborn vitamin K stores are naturally low","The baby is anemic","To start breathing","To prevent eye infection"],
+[0,1,0,"A woman lying flat feels dizzy during the abdominal exam. The most likely cause is:","Supine hypotension","Full bladder","Fetal hiccups","Polyhydramnios"],
+[1,1,0,"Why is the perineum swabbed from front to back?","To avoid carrying rectal organisms toward the vagina","To speed up labor","To measure dilatation","To dry the skin"],
+[2,1,0,"In the Apgar score, 'Grimace' means the baby's:","Response to stimulation (cry, cough, sneeze)","Skin color","Heart rate","Muscle tone"],
+[0,2,0,"At 38 weeks Pawlik's grip finds a mobile head and the tape reads 33 cm. The best interpretation is:","Head not engaged; smaller than dates (IUGR or oligohydramnios)","Head engaged; normal size","Transverse lie confirmed","Larger than dates (twins)"],
+[1,2,0,"On VE the cervix admits one finger and is 1 cm long and very soft. This means about:","2 cm dilated, 50% effaced","1 cm dilated, 25% effaced","4 cm dilated, 75% effaced","10 cm dilated, 100% effaced"],
+[2,2,0,"For a healthy baby born crying, the correct order is:","Wipe mouth then nose, delay cord clamping, dry and skin-to-skin","Clamp at once, suction, dry","Suction, clamp, wipe","Dry, clamp at 30 seconds, wipe"],
+[0,2,0,"Which pair is matched correctly?","Fundal grip: lie and presentation; lateral grip: position","Fundal grip: engagement; lateral grip: lie","Fundal grip: position; lateral grip: descent","Fundal grip: attitude; lateral grip: engagement"],
+[1,2,0,"If the membranes are ruptured, the examining fingers are prepared with:","Antiseptic solution and sterile gloves","Plain tap water","Cotton soaked in alcohol","No preparation at all"],
+[0,3,0,"At 34 weeks a woman has vaginal bleeding and a rigid, painful uterus. For the abdominal exam the nurse should:","Use extreme caution with a modified technique (possible abruption)","Do all four grips firmly to find the lie","Press deeply for Pawlik's grip","Lay her flat and wait"],
+[1,3,0,"A breech baby has the sacrum at the mother's left posterior. The position is:","LSP","LOP","LSA","LMA"],
+[2,3,0,"A term baby is limp and not breathing at birth. Cord clamping should be:","Done immediately so resuscitation can start","Delayed 1–3 minutes regardless","Delayed 5 minutes","Left until the placenta is delivered"],
+[0,4,0,"The dark vertical line labelled in the picture is:","Linea nigra","Striae gravidarum","A cesarean scar","The fundal height line","linea"],
+[0,4,0,"In which step of the abdominal exam is this sign looked for?","Inspection","Fundal grip","Auscultation","Pawlik's grip","linea"],
+[1,4,0,"Which position, as in the picture, is acceptable for VE?","Dorsal recumbent or lithotomy with knees flexed","Prone","Knee-chest only","Standing","ve_position"],
+[1,4,0,"In the diamond drape, one corner is at the sternum and the others are over:","Each knee and the perineum","Both shoulders and the abdomen","Each ankle","The pillow","ve_position"],
+[2,4,0,"The device in the picture is a:","Radiant warmer","Suction machine","Oxygen cylinder","Phototherapy unit","nb_warm"],
+[2,4,0,"This device is used instead of skin-to-skin when:","Skin-to-skin is not possible or the baby needs resuscitation or extra care","Every healthy baby is born","The baby is being bathed","The cord is being cared for","nb_warm"],
+[0,1,1,"In the tape method, the stretched end of the tape reaches the:","Superior border of the symphysis pubis","Umbilicus","Xiphisternum","Iliac crest"],
+[1,1,1,"Which condition is a reason to avoid vaginal examination?","Active herpes lesion","Onset of labor","Need for AROM","Assessing dilatation"],
+[2,1,1,"Why is the newborn dried at once and placed skin-to-skin?","To maintain warmth and prevent hypothermia","To measure the weight","To give vitamin K","To clamp the cord"],
+[0,1,1,"A hard, round, mobile mass felt in the fundal grip suggests the presentation is likely:","Breech (head at the fundus)","Cephalic","Transverse","Shoulder"],
+[1,1,1,"What is done after separating the labia and before inserting the fingers?","Inspect the vulva and perineum","Assess station","Rupture the membranes","Auscultate the FHR"],
+[2,1,1,"Vitamin K for the newborn is given as:","1 mg IM in the vastus lateralis","10 mg IV in the deltoid","1 mg orally","10 mg subcutaneously"],
+[0,2,1,"At 24 weeks the tape reads 29 cm. The most likely reason is:","Larger than dates (polyhydramnios or twins)","Normal growth","IUGR","Oligohydramnios"],
+[1,2,1,"VE shows the cervix 10 cm dilated and fully effaced. The woman is:","Fully dilated, ready for the second stage","In the latent phase","In early first stage","In the third stage"],
+[2,2,1,"A newborn has HR 90, is pale, with no cry, limp and no response. The Apgar total is:","1 (severe asphyxia)","4 (moderate asphyxia)","6 (moderate asphyxia)","8 (normal)"],
+[0,2,1,"Which statement about the grips is correct?","Pawlik's grip: engagement (after 36 weeks)","Lateral grip: engagement","Fundal grip: position","Second pelvic grip: lie"],
+[2,2,1,"Why is cord clamping delayed 1–3 minutes in a healthy baby?","Placental blood continues to reach the baby","To give vitamin K","To cool the baby","To protect the mother"],
+[0,3,1,"The correct order of the grips is:","Fundal, lateral, Pawlik, second pelvic","Lateral, fundal, second pelvic, Pawlik","Pawlik, fundal, lateral, second pelvic","Second pelvic, Pawlik, lateral, fundal"],
+[1,3,1,"The position abbreviation ROP means:","Right occiput posterior","Right occiput anterior","Right sacrum posterior","Left occiput posterior"],
+[2,3,1,"A baby has HR 150, is completely pink, cries strongly, moves actively and cries when stimulated. The Apgar total is:","10","8","9","7"],
+[0,4,1,"The picture shows measurement of:","Symphysis-fundal height with a tape measure","Fetal heart rate","Pelvic dimensions","Abdominal girth only","fund"],
+[0,4,1,"Using this method at 30 weeks, the normal reading is about:","30 cm (± 2–3 cm)","20 cm","40 cm","12 cm","fund"],
+[1,4,1,"The two fingers shown are the:","Index and middle fingers, lubricated","Thumb and index finger, dry","Middle and ring fingers, in sterile water","All five fingers","ve_lubricate"],
+[1,4,1,"After this step the nurse asks the woman to:","Take slow deep breaths to relax her pelvic muscles","Hold her breath","Sit up","Turn onto her face","ve_lubricate"],
+[2,4,1,"The red device shown is used to:","Clear mucus from the mouth then the nose","Measure head circumference","Give vitamin K","Cut the cord","nb_bulb"],
+[2,4,1,"When this device is needed, the correct order is:","Mouth first, then nose","Nose first, then mouth","Both at once","Eyes, then mouth","nb_bulb"],
+[0,1,2,"Which of these can make fundal height LARGER than dates?","A full bladder","IUGR","Oligohydramnios","Intrauterine fetal death"],
+[1,1,2,"Which is an indication for vaginal examination?","Confirm the onset of labor","Measure fundal height","Check the maternal pulse","Detect polyhydramnios"],
+[2,1,2,"Which item is NOT part of the newborn care equipment?","Vaginal speculum","Radiant warmer","Suction machine with catheter","Identification band"],
+[0,1,2,"With the Pinard fetoscope, fetal heart sounds are first heard at about:","20 weeks","6 weeks","12 weeks","28 weeks"],
+[1,1,2,"After cleaning the vulva with antiseptic and a pad, the nurse:","Auscultates the fetal heart rate","Starts another examination","Measures fundal height","Removes the drape only"],
+[2,1,2,"While weighing the baby the nurse should:","Hold a hand over (not touching) the baby","Leave the baby alone for a moment","Weigh the baby wrapped in blankets","Weigh before balancing the scale"],
+[0,2,2,"At 30 weeks the tape reads 24 cm. The best pair of causes is:","IUGR or oligohydramnios","Twins or polyhydramnios","Full bladder or fibroid","Concealed hemorrhage or fibroid"],
+[1,2,2,"VE finds a thick, 2 cm long, closed cervix with intact membranes. The effacement and dilatation are:","0% effaced, 0 cm dilated","50% effaced, 2 cm dilated","100% effaced, 10 cm dilated","75% effaced, 6 cm dilated"],
+[2,2,2,"HR 120, pink body with blue hands and feet, weak cry, grimaces and moves a little when stimulated. The Apgar total is:","6 (moderate asphyxia)","8 (normal)","4 (moderate asphyxia)","3 (severe asphyxia)"],
+[0,2,2,"Which is correct when using the Pinard fetoscope?","Press the ear firmly, remove the hands and listen a full minute","Hold it with both hands and listen 15 seconds","Place it over the fundus","Listen for only 5 seconds"],
+[1,2,2,"The correct sequence is:","Inspect vulva, swab front to back, lubricate, insert fingers","Insert fingers, inspect, swab","Lubricate, inspect, swab","Swab, insert fingers, inspect"],
+[0,3,2,"Which cause appears in BOTH the larger-than-dates and smaller-than-dates lists?","Wrong dates or calculation","Polyhydramnios","Multiple pregnancy","Fetal malformation"],
+[1,3,2,"Over several VEs the station changes from -2 to +1. The presenting part has:","Descended past the ischial spines","Moved up out of the pelvis","Stayed at the spines","Not changed"],
+[2,3,2,"To reduce heat loss in a healthy newborn, all are correct EXCEPT:","Bathing the baby right after birth","Drying from the head and face","Skin-to-skin on the mother","Avoiding air drafts"],
+[0,4,2,"The grip marked (1) in the picture is the:","Fundal grip","Lateral grip","Pawlik's grip","Second pelvic grip","g1"],
+[0,4,2,"In this grip the nurse faces the woman's:","Head","Feet","Right knee","Left knee","g1"],
+[1,4,2,"In this step the fingers are inserted:","Gently downward and backward","Upward and forward","Sideways only","Forcefully","ve_insert"],
+[1,4,2,"After insertion, the first structure the nurse locates is the:","Cervix","Placenta","Umbilical cord","Fetal heart","ve_insert"],
+[2,4,2,"The vessel marked in red in the cord is the:","Umbilical vein","Umbilical artery","Wharton's jelly","Placental sinus","nb_cord3"],
+[2,4,2,"The substance labelled in white that cushions the vessels is:","Wharton's jelly","Amniotic fluid","Vernix","Blood clot","nb_cord3"],
+[0,2,0,"Which is NOT an objective of the abdominal examination?","Performing an artificial rupture of membranes","Estimating gestational age","Assessing fetal well-being","Detecting deviations from normal"],
+[1,2,0,"VE shows 4 cm dilatation, station -2 and intact membranes. Which statement is correct?","The presenting part is above the ischial spines (not engaged)","The presenting part is engaged at the spines","The presenting part is on the perineum","Dilatation is about three finger-widths"],
+[2,2,0,"Which Apgar item scores 0 when the baby is limp?","Activity","Appearance","Pulse","Grimace"],
+[2,2,0,"The Apgar score has:","5 items with a maximum of 10","4 items with a maximum of 8","5 items with a maximum of 15","3 items with a maximum of 6"],
+[0,3,0,"Fundal height is larger than dates. Which pair of causes fits the book's list?","Uterine fibroid or full bladder","IUGR or intrauterine fetal death","Oligohydramnios or fetal malformation","Fetal malformation or IUGR"],
+[1,3,0,"Which pair lists contraindications to routine VE?","Placenta previa and active herpes lesion","Onset of labor and cervical dilatation","AROM and station","Position and engagement"],
+[2,3,0,"Which is NOT a reason for low vitamin K at birth?","Gut bacterial colonization is already complete","Poor placental transport","Low content in breast milk","Gut bacteria need a few days to make it"],
+[1,3,0,"Three finger-widths of dilatation on VE means about:","6 cm","3 cm","4 cm","10 cm"],
+[0,2,1,"Which is NOT part of preparing the woman for the abdominal exam?","Placing her prone","Emptying her bladder","Raising the head 15°","Exposing xiphisternum to symphysis only"],
+[1,2,1,"Bloody show, varicosities and scars are looked for during:","Inspection of the vulva before inserting the fingers","The fundal grip","Fetal heart auscultation","After-care"],
+[2,2,1,"Pulse 2, Appearance 2, Grimace 2, Activity 2, Respiration 1. The Apgar total and class are:","9, normal","8, moderate asphyxia","10, normal","7, mild asphyxia"],
+[2,2,1,"Which item is NOT in the cord care tray?","Laryngoscope","Sterile scissors","Umbilical clamp","Dry cotton and gauze"],
+[0,3,1,"The fundal grip finds a soft, irregular mass and Pawlik's grip finds the presenting part fixed. This suggests:","Cephalic presentation with the head engaged","Breech presentation, not engaged","Transverse lie, engaged","Cephalic presentation, not engaged"],
+[1,3,1,"Which abbreviation describes a breech baby with the sacrum at the mother's right anterior?","RSA","RSP","ROA","LSA"],
+[1,3,1,"On VE the head is 1 cm above the ischial spines. The station is:","-1","+1","0","-3"],
+[2,3,1,"The newborn ID band includes all EXCEPT:","The baby's blood group","The mother's name","The hospital number","The time and date of birth"],
+[0,2,2,"Which does NOT change the size of the abdomen?","Maternal pulse","Obesity","Multiple pregnancy","Uterine fibroids"],
+[1,2,2,"Which item is NOT needed for VE?","Fetal scalp electrode","Sterile gloves","Antiseptic cream or lubricant","Paper towels"],
+[2,2,2,"Pulse, Appearance, Grimace, Activity and Respiration all score 0. The total and action are:","0, full resuscitation","0, routine care","3, oxygen only","5, rub the baby"],
+[2,2,2,"If the cord stump becomes soiled, the nurse should:","Wash with soap and clean water, then dry","Apply alcohol","Cover it with powder","Leave it soiled"],
+[0,3,2,"At 34 weeks the tape reads 40 cm and two separate fetal heart rates are heard. The most likely cause is:","Multiple pregnancy","Oligohydramnios","IUGR","Full bladder"],
+[1,3,2,"VE is used to catch which problem early?","An abnormal presentation","Anemia","Hypertension","Edema"],
+[1,3,2,"Which abbreviation describes a cephalic baby with the occiput at the left posterior?","LOP","ROP","LOA","LSP"],
+[2,3,2,"Which is NOT an objective of immediate newborn care?","Preventing maternal bleeding","Maintaining warmth","Establishing respiration","Detecting congenital anomalies"]
+];
+
+const EXC=["Linea nigra is:","Striae gravidarum are:","The fetal back feels:|Broad and smooth","The nurse should stand on the woman's:","Standing on the woman's right side","Vitamin K is injected into the:","Vitamin K is given by which route?","Vitamin K is given to prevent:","Newborn vitamin K is naturally low","The draping for vaginal examination is arranged in a:","The perineum is swabbed from:","Pawlik's grip assesses:","The lateral grip determines the:","The first (fundal) grip determines:","A fixed presenting part on Pawlik's grip means:","The fetal head feels:","The fetal buttocks feel:","Full cervical dilatation is:","Vaginal examination during labor is contraindicated in:","If the membranes are intact, the examiner may use:","A cervix that is 0% effaced","Which position is NOT used for vaginal examination during labor?","Routine suctioning of a healthy newborn is:","A risk of unnecessary suctioning is:","Suctioning is indicated when there is:","As the head is delivered, the nurse wipes:","Why wipe the mouth before the nose?","Cord clamping in a healthy newborn is delayed until:","A healthy newborn is first placed:","Case:","For that baby with a total Apgar","A wet, glistening perineum","Why raise the head of the bed 15°?","Fetal heart is auscultated for:","The Pinard fetoscope is placed on the:","An Apgar score of 4–6 is classified as:","Severe asphyxia (0–3) needs:","Fundal height SMALLER than dates may indicate:","Fundal height LARGER than dates may indicate:","Screening and draping the bed","Concealed hemorrhage gives a fundal height:","An Apgar score of 7–10 is classified as:"];
+const ex=q=>EXC.some(e=>(q.t+'|'+q.o[q.c]).startsWith(e));
+function model(m){if(models[m])return models[m];const P=pool(),N=[4,4,4],r=rnd(777+m*101),out=[];
+P.forEach((p,i)=>p.filter((_,k)=>k%3===m).filter(q=>!ex(q)).slice(0,N[i]).forEach(q=>out.push({...q,lv:0})));
+NEW.filter(x=>x[2]===m).forEach(x=>out.push({t:x[3],ta:'',o:[x[4],x[5],x[6],x[7]],oa:null,c:0,n3:false,l:x[0],lv:x[1],im:x[8]||null,d:0}));
+out.sort((a,b)=>a.lv-b.lv||(a.lv?a.l-b.l:a.d-b.d));let z=m;
+return models[m]=out.map(q=>{const n=q.n3?3:4,tg=(z++)%n,oth=shuf([...Array(n).keys()].filter(i=>i!==q.c),r),perm=[];for(let p=0;p<n;p++)perm.push(p===tg?q.c:oth.shift());if(q.n3)perm.push(3);return{...q,o:perm.map(i=>q.o[i]),oa:q.oa&&perm.map(i=>q.oa[i]),c:perm.indexOf(q.c)}})}
+
+const st={};let tm=0,vm='',mp='q',pe='';const eff=()=>vm||(innerWidth<860?'mob':'lap');
+const exitFull=()=>{W.classList.remove('mtfull');try{document.fullscreenElement&&document.exitFullscreen()}catch(e){}};
+function toggleFull(){if(W.classList.contains('mtfull'))exitFull();else{W.classList.add('mtfull');try{const r=W.requestFullscreen&&W.requestFullscreen();r&&r.catch&&r.catch(()=>{})}catch(e){}}document.querySelectorAll('[data-full]').forEach(b=>b.classList.toggle('on',W.classList.contains('mtfull')))}
+document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement){W.classList.remove('mtfull');document.querySelectorAll('[data-full]').forEach(b=>b.classList.remove('on'))}});
+window.addEventListener('resize',()=>{if(!vm&&tab!=='sum'&&W.classList.contains('on')&&eff()!==pe)draw()});const S=m=>st[m]||(st[m]={a:{},done:false,mist:false,cls:'',dt:new Date().toLocaleDateString('en-GB')});
+const uname=()=>{try{return(JSON.parse(localStorage.getItem('modo_auth')||'null')||{}).name||''}catch(e){return ''}};
+function qcls(q,k,s){if(!s.done)return s.a[k]!==undefined?'ans':'';return s.a[k]===q.c?'okq':'badq'}
+function train(){const E=lg==='en',m=tm,Q=model(m),s=S(m),n=Q.length,mob=eff()==='mob',ot=mob&&!s.done?'button':'div',na=Object.keys(s.a).length,ok=Q.filter((q,k)=>s.a[k]===q.c).length;pe=eff();
+const title=E?'Midterm Practice Questions – OB/GYN Nursing (Practical)':'أسئلة تدريبية لاختبارات الميد تيرم لمادة تمريض نساء وولادة عملي';
+const sub=E?'Abdominal Examination · Vaginal Examination · Immediate Newborn Care':'الفحص البطني · الفحص المهبلي · الرعاية الفورية للمولود';
+let h=`<div class="trh"><div class="trt"><b>${title}</b><small>${sub} · ${n} ${E?'questions':'سؤال'}</small></div><div class="trm">${[0,1,2].map(i=>`<button data-tm="${i}" style="--c:${MC[i]}" class="${i==m?'on':''}">${E?'Model':'نموذج'} ${MN[i]}</button>`).join('')}</div><div class="vmb"><button data-vm="lap" class="${!mob?'on':''}">💻 ${E?'Laptop':'لابتوب'}</button><button data-vm="mob" class="${mob?'on':''}">📱 ${E?'Mobile':'موبايل'}</button><button data-full="1" class="${W.classList.contains('mtfull')?'on':''}">⛶ ${E?'Fullscreen':'تكبير الشاشة'}</button></div></div>${mob?`<div class="mpt"><button data-mp="q" class="${mp==='q'?'on':''}">📄 ${E?'Questions':'الأسئلة'}</button><button data-mp="a" class="${mp==='a'?'on':''}">🔘 ${E?'Answer Sheet':'البابل شيت'} (<b id="cnt2">${na}</b>/${n})</button></div>`:''}<div class="trw" data-p="${mp}">`;
+/* bubble sheet (left) */
+const hh=Math.ceil(n/2),th=Math.ceil(n/3),col=mob?[[0,hh],[hh,n]]:[[0,th],[th,2*th],[2*th,n]];
+h+=`<div class="bs" style="--m:${MC[m]}"><div class="bsh"><b>Answer Sheet</b><span>Model ${MN[m]}</span></div><div class="bsf"><label>Name <input data-f="nm" value="${esc(s.nm!==undefined?s.nm:uname())}"></label><label>Date <input data-f="dt" value="${esc(s.dt)}"></label><label>Class <input data-f="cls" value="${esc(s.cls)}"></label></div><div class="bsg" style="grid-template-columns:repeat(${col.length},1fr)">${col.map(c=>`<div>${Q.slice(c[0],c[1]).map((q,j)=>{const k=c[0]+j;return `<div class="br"><button class="bn" data-go="${k}" style="--c:${LV[q.lv][2]}">${k+1}</button>${[0,1,2,3].map(i=>{let c2='bb';if(s.a[k]===i)c2+=' sel';if(s.done){if(s.a[k]===i)c2+=i===q.c?' ok':' bad';else if(i===q.c)c2+=' key'}return `<button class="${c2}" data-b="${k},${i}" style="--c:${LC[i]}" ${s.done?'disabled':''}>${'ABCD'[i]}</button>`}).join('')}</div>`}).join('')}</div>`).join('')}</div>`;
+h+=`<div class="bsb">${s.done?`<div class="sc2"><b>${ok} / ${n}</b><small>${Math.round(ok/n*100)}%</small></div><button class="mtb sm" data-mist="1">${s.mist?(E?'Show all questions':'عرض كل الأسئلة'):(E?'Show mistakes only':'عرض الأخطاء فقط')}</button><button class="mtb sm alt2" data-rs="1">${E?'Retry this model':'إعادة المحاولة'} 🔁</button>`:`<div class="cnt">${E?'Answered':'تمت الإجابة'}: <b id="cnt">${na}</b> / ${n}</div><button class="mtb sub" data-sub="1">${E?'Show result & review mistakes':'عرض النتيجة ومعرفة الأخطاء'} ✔</button>`}</div></div>`;
+/* paper (right) */
+h+=`<div class="pp" id="pp"><div class="pph" style="--m:${MC[m]}"><div><b>Midterm Practice Exam</b><small>OB/GYN Nursing – Practical · Model ${MN[m]}</small></div><span>${n} Q</span></div>`;
+if(s.done){const lv=[0,1,2,3,4].map(l=>{const t=Q.filter(q=>q.lv===l);return [t.length,t.filter(q=>s.a[Q.indexOf(q)]===q.c).length]}),ls=[0,1,2].map(l=>{const t=Q.filter(q=>q.l===l);return [t.length,t.filter(q=>s.a[Q.indexOf(q)]===q.c).length]}),p=ok/n;
+h+=`<div class="rs"><div class="ring" style="--p:${Math.round(p*100)};--c:${p>=.7?'#27ae60':p>=.5?'#f2994a':'#eb5757'}"><span>${Math.round(p*100)}%</span></div><div class="rsd"><h4>${p>=.85?(E?'Excellent! 🏆':'ممتاز! 🏆'):p>=.7?(E?'Very good 👏':'جيد جدًا 👏'):p>=.5?(E?'Good, keep revising 💪':'كويس، كمّل مراجعة 💪'):(E?'Needs more revision 📚':'محتاج مراجعة أكتر 📚')}</h4><p>${E?`Correct ${ok} · Wrong ${na-ok} · Unanswered ${n-na}`:`صح ${ok} · غلط ${na-ok} · من غير إجابة ${n-na}`}</p><div class="chs">${lv.map((x,i)=>`<span style="--c:${LV[i][2]}">${E?LV[i][0]:LV[i][1]} ${x[1]}/${x[0]}</span>`).join('')}${ls.map((x,i)=>`<span style="--c:${LC[i]}">${E?L[i].e.slice(3):L[i].n.slice(3)} ${x[1]}/${x[0]}</span>`).join('')}</div></div></div>`}
+let last=-1;Q.forEach((q,k)=>{if(q.lv!==last){last=q.lv;h+=`<div class="lvh" style="--c:${LV[q.lv][2]}">${(q.lv<4?(E?'Level '+(q.lv+1)+' – ':'المستوى '+(q.lv+1)+' – '):'')+LV[q.lv][E?0:1]}</div>`}
+const c=qcls(q,k,s),hide=s.done&&s.mist&&c==='okq'?' hid':'';
+h+=`<div class="qn ${c}${hide}" id="q${k}"><div class="qh"><span class="qb2" style="background:${LV[q.lv][2]}">${k+1}</span><div class="qt">${esc(q.t)}${!E&&q.ta?`<span class="ar">${bd(esc(q.ta))}</span>`:''}<small class="ls" style="--c:${LC[q.l]}">${E?L[q.l].e.slice(3):L[q.l].n.slice(3)}</small></div></div>${q.im&&typeof IMG!=='undefined'&&IMG[q.im]?`<figure class="qi"><img src="${IMG[q.im]}" alt=""></figure>`:''}${q.o.map((o,i)=>`<${ot} class="op${s.a[k]===i&&!s.done?' sel2':''}${s.done&&i===q.c?' ok':''}${s.done&&s.a[k]===i&&i!==q.c?' bad':''}"${ot==='button'?` data-b="${k},${i}"`:''}><b style="color:${LC[i]}">${'abcd'[i]}.</b><span>${esc(o)}${!E&&q.oa?`<span class="ar">${bd(esc(q.oa[i]))}</span>`:''}</span></${ot}>`).join('')}${s.done?`<div class="vd2">${s.a[k]===undefined?(E?'⚠ Not answered':'⚠ من غير إجابة'):s.a[k]===q.c?(E?'✔ Correct':'✔ إجابة صحيحة'):(E?'✖ Your answer: ':'✖ إجابتك: ')+'ABCD'[s.a[k]]}${s.a[k]!==q.c?` · ${E?'Correct':'الصح'}: <b>${'ABCD'[q.c]}</b>`:''}</div>`:''}</div>`});
+return h+'</div></div>'}
+function trH(t){const D=t.dataset,E=lg==='en';
+if(D.tm!==undefined){tm=+D.tm;draw();return 1}
+if(D.vm){vm=D.vm;draw();return 1}
+if(D.full){toggleFull();return 1}
+if(D.mp){mp=D.mp;const w=document.querySelector('.trw');w&&(w.dataset.p=mp);document.querySelectorAll('.mpt button').forEach(b=>b.classList.toggle('on',b.dataset.mp===mp));return 1}
+if(D.go!==undefined){if(eff()==='mob'&&mp!=='q'){mp='q';const w=document.querySelector('.trw');w&&(w.dataset.p='q');document.querySelectorAll('.mpt button').forEach(b=>b.classList.toggle('on',b.dataset.mp==='q'))}const e=document.getElementById('q'+D.go);e&&e.scrollIntoView({behavior:'smooth',block:'start'});return 1}
+if(D.b!==undefined){const s=S(tm);if(s.done)return 1;const[k,i]=D.b.split(',').map(Number);if(s.a[k]===i)delete s.a[k];else s.a[k]=i;
+document.querySelectorAll('[data-b^="'+k+',"]').forEach(b=>{const j=+b.dataset.b.split(',')[1];b.classList.toggle(b.classList.contains('bb')?'sel':'sel2',s.a[k]===j)});const q=document.getElementById('q'+k);q&&q.classList.toggle('ans',s.a[k]!==undefined);['cnt','cnt2'].forEach(id=>{const c=document.getElementById(id);c&&(c.textContent=Object.keys(s.a).length)});return 1}
+if(D.sub){const s=S(tm),na=model(tm).length-Object.keys(s.a).length;if(na&&!confirm(E?`You have ${na} unanswered question(s). Show the result anyway?`:`لسه في ${na} سؤال من غير إجابة. تعرض النتيجة؟`))return 1;s.done=true;s.mist=false;mp='q';draw();return 1}
+if(D.mist){const s=S(tm);s.mist=!s.mist;draw();return 1}
+if(D.rs){st[tm]=null;delete st[tm];draw();return 1}
+return 0}
+
+function draw(){const b=$('#mtb2');if(b){b.className='mtb2'+(tab==='sum'?'':' trq '+eff()+(eff()==='mob'&&innerWidth>860?' frame':''));b.innerHTML=tab==='sum'?sum():train();b.style.setProperty('--fs',fs);b.scrollTop=0}$('#mtt').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x.dataset.t===tab));document.querySelectorAll('.mgl button').forEach(x=>x.classList.toggle('on',x.dataset.g===lg))}
+function win(){W.innerHTML=`<div class="mtm"><div class="mth"><b>🎯 المراجعة النهائية للميد تيرم</b><span class="mgl"><button data-g="mix">عربي + EN</button><button data-g="en">English</button></span><button class="mtx" aria-label="إغلاق" id="mtx">✕</button></div><div class="mtt" id="mtt"><button data-t="sum">📝 الشرح التفصيلي</button><button data-t="quiz">✏️ التدريب</button></div><div class="mtb2" id="mtb2"></div></div>`;draw()}
+function ask(n){W.innerHTML=`<div class="mtc"><div class="em">👋</div><h2>مرحباً بيك ${n}</h2><p>النهاردة هي <b>المراجعة النهائية للميد تيرم</b>.<br>هل أنت مستعد؟</p><button class="mtb" id="mgo">دخول للمراجعة النهائية والتدريب ▶</button><button class="mtb alt" id="mlt">مش دلوقتي</button></div>`;W.classList.add('on')}
+Z.onclick=()=>Z.classList.remove('on');
+W.addEventListener('click',e=>{const im=e.target.closest('figure img');if(im){Z.firstChild.src=im.src;Z.classList.add('on');return}
+const t=e.target.closest('button');if(!t)return;
+if(t.id==='mgo'){win();return}if(t.id==='mlt'||t.id==='mtx'){exitFull();W.classList.remove('on');return}
+if(trH(t))return;
+if(t.dataset.g){lg=t.dataset.g;draw();return}
+if(t.dataset.fs){fs=Math.min(1.5,Math.max(.85,+(fs+.1*t.dataset.fs).toFixed(2)));$('#mtb2').style.setProperty('--fs',fs);return}
+if(t.dataset.t){tab=t.dataset.t;draw()}else if(t.dataset.l){cur=+t.dataset.l;draw()}});
+W.addEventListener('input',e=>{const f=e.target.dataset&&e.target.dataset.f;if(f)S(tm)[f]=e.target.value});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){Z.classList.remove('on');W.classList.remove('on');exitFull()}});
+function chk(){let ok=false;try{ok=window.MODOGATE&&MODOGATE.authed()}catch(e){}
+if(!ok){try{sessionStorage.removeItem('mt_seen')}catch(e){}W.classList.remove('on');return}
+let s=0;try{s=sessionStorage.getItem('mt_seen')}catch(e){}if(s)return;try{sessionStorage.setItem('mt_seen','1')}catch(e){}
+let n='';try{n=(JSON.parse(localStorage.getItem('modo_auth')||'null')||{}).name||''}catch(e){}
+ask(n.replace(/[<>&"]/g,''))}
+window.addEventListener('modo-auth',()=>setTimeout(chk,500));setTimeout(chk,800);
+window.openMidtermReview=()=>{win();W.classList.add('on')};
+})();
+</script>
+<!-- ===== /MIDTERM FINAL REVIEW ===== -->
+
 </body>
 </html>
