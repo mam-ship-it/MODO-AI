@@ -5070,8 +5070,8 @@ document.addEventListener('click',e=>{const el=e.target.closest('#mt [data-a],#m
  else if(d.q!=null&&!st.done){st.a[+d.q]=+d.o;paint()}});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('#mtX').classList.contains('on'))$('#mt [data-a=close]').click()});
 const fab=()=>{const b=$('#mtW').classList.contains('on')||$('#mtX').classList.contains('on');$('#mtF').style.display=ok()&&!b?'block':'none'};
-window.addEventListener('modo-auth',()=>{if(!ok()){show('#mtW',false);show('#mtX',false)}fab();if(ok()&&!seen())enter()});
-window.addEventListener('modo-login',()=>{if(ok())enter()});
+window.addEventListener('modo-auth',()=>{if(!ok()){show('#mtW',false);show('#mtX',false);try{sessionStorage.removeItem('mt_wel')}catch(e){}}fab();if(ok()&&!seen())enter()});
+window.addEventListener('modo-login',()=>{try{sessionStorage.removeItem('mt_wel')}catch(e){}const go=n=>{if(ok())enter();else if(n<12)setTimeout(()=>go(n+1),250)};go(0)});
 window.openMidtermReview=enter;applyMode();fab();if(ok()&&!seen())enter();
 })();
 </script>
