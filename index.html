@@ -670,6 +670,53 @@ body.adm-open>*:not(#adm):not(#adm-x){display:none!important}
 #mxh.mxin .av{width:36px;height:36px;border-width:2px;animation:none;box-shadow:0 3px 10px #1f7ae055}
 .mainc{padding-bottom:24px}}
 </style>
+<!-- ===== MODO SHIELD: حماية ضد السكرين شوت والنسخ ===== -->
+<style id="shield-css">
+html,body{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+input,textarea,[contenteditable="true"],[contenteditable=""]{-webkit-user-select:text;user-select:text}
+img,svg,canvas,video{-webkit-user-drag:none;user-drag:none}
+#shield-cover{position:fixed;inset:0;z-index:2147483647;background:#000;color:#fff;display:none;align-items:center;justify-content:center;text-align:center;font:700 1.2rem Cairo,Tahoma,sans-serif;padding:24px;line-height:1.9;direction:rtl}
+html.shield-on #shield-cover{display:flex}
+@media print{html,body{display:none!important}}
+</style>
+<script id="shield-js">
+(()=>{'use strict';
+/* إعدادات: غيّر true/false حسب احتياجك */
+const CFG={blurCover:true,keys:true,menu:true,copy:true,print:true,msg:'🔒 المحتوى محمي — التصوير ممنوع<br><small style="font-weight:400;opacity:.8">ارجع للمنصة عشان تكمّل</small>'};
+const root=document.documentElement;
+let tmr=0,cover;
+const editable=t=>!!(t&&t.closest&&t.closest('input,textarea,select,[contenteditable="true"],[contenteditable=""]'));
+function mk(){if(cover&&cover.isConnected)return;cover=document.createElement('div');cover.id='shield-cover';cover.innerHTML='<div>'+CFG.msg+'</div>';(document.body||root).appendChild(cover)}
+const on=ms=>{mk();root.classList.add('shield-on');clearTimeout(tmr);if(ms)tmr=setTimeout(off,ms)};
+const off=()=>{clearTimeout(tmr);root.classList.remove('shield-on')};
+const wipe=()=>{try{navigator.clipboard&&navigator.clipboard.writeText(' ').catch(()=>{})}catch(e){}};
+const pass=e=>{e.preventDefault();e.stopPropagation();return false};
+const A=(t,f,o)=>window.addEventListener(t,f,o||true);
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mk);else mk();
+/* إعادة إنشاء الغطاء لو اتمسح من DevTools */
+new MutationObserver(()=>{if(cover&&!cover.isConnected)mk()}).observe(root,{childList:true,subtree:true});
+if(CFG.menu){A('contextmenu',e=>editable(e.target)?0:pass(e));A('dragstart',pass)}
+if(CFG.copy){['copy','cut'].forEach(t=>A(t,e=>editable(e.target)?0:(wipe(),pass(e))));A('selectstart',e=>editable(e.target)?0:pass(e))}
+if(CFG.keys){
+ A('keydown',e=>{const k=(e.key||'').toLowerCase(),c=e.ctrlKey||e.metaKey;
+  if(k==='printscreen'||e.keyCode===44){on(2500);wipe();return pass(e)}
+  if(e.metaKey&&e.shiftKey){on(3000)}                 /* Win+Shift+S / Cmd+Shift+3/4/5 */
+  if(k==='f12'||(c&&e.shiftKey&&['i','j','c','s'].includes(k))||(c&&['u','s','p'].includes(k))){if(!editable(e.target)||k==='f12'||k==='p'){on(1500);return pass(e)}}
+ });
+ A('keyup',e=>{if((e.key||'').toLowerCase()==='printscreen'||e.keyCode===44){on(2500);wipe()}});
+}
+if(CFG.print){A('beforeprint',()=>on());A('afterprint',off)}
+if(CFG.blurCover){
+ /* التبديل لتطبيق تاني / أداة القص / تصوير الشاشة يخلّي الصفحة تتغطى */
+ const ifr=()=>{const a=document.activeElement;return a&&a.tagName==='IFRAME'};
+ A('blur',()=>{setTimeout(()=>{if(!document.hasFocus()&&!ifr())on()},60)});
+ A('focus',off);
+ document.addEventListener('visibilitychange',()=>{document.hidden?on():off()});
+ document.addEventListener('mouseleave',()=>{},false);
+}
+})();
+</script>
+<!-- ===== /MODO SHIELD ===== -->
 </head>
 <body>
 <div id="spl" class="boot" role="dialog" aria-label="MODO AI"><div class="s1" id="s1"><svg viewBox="0 0 400 420" role="img" aria-label="تحميل المنصة"><defs><linearGradient id="wg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1f7ae0"/><stop offset="1" stop-color="#19c6c6"/></linearGradient><linearGradient id="mt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef3fa"/><stop offset=".5" stop-color="#9fb3cc"/><stop offset="1" stop-color="#6c829f"/></linearGradient><clipPath id="lc"><rect x="58" y="78" width="284" height="284" rx="30"/></clipPath><mask id="wm"><path id="pw" d="M200 44H326A50 50 0 0 1 376 94V346A50 50 0 0 1 326 396H74A50 50 0 0 1 24 346V94A50 50 0 0 1 74 44Z" pathLength="100" fill="none" stroke="#fff" stroke-width="16" stroke-dasharray="0 100"/></mask></defs>
@@ -4254,6 +4301,7 @@ const chk=()=>{if(location.hash==='#admin')open()};addEventListener('hashchange'
 @media(max-width:620px){.mx-hero{grid-template-columns:1fr}.mx-ring{justify-self:center}}
 .mx-sec{margin:22px 2px 10px;display:flex;align-items:center;gap:10px;font-size:1.15rem;font-weight:800}.mx-sec small{color:var(--mute);font-weight:600;font-size:.8rem}.mx-sec::after{content:"";flex:1;height:2px;background:linear-gradient(90deg,var(--line),transparent);border-radius:2px}
 .mx-jr{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}.mx-ch{--p:0;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px;background:var(--card);border:1.5px solid var(--line);border-radius:20px;padding:14px 10px;transition:.25s;position:relative}.mx-ch:hover{transform:translateY(-4px);box-shadow:0 12px 24px #1f7ae022}.mx-ch .mxr{width:54px;height:54px;border-radius:50%;background:conic-gradient(var(--c,#1f7ae0) calc(var(--p)*1%),var(--line) 0);display:grid;place-items:center;position:relative;font-style:normal}.mx-ch .mxr::before{content:"";position:absolute;inset:5px;background:var(--card);border-radius:50%}.mx-ch .mxr b{position:relative;font-size:1.05rem}.mx-ch span{font-size:.82rem;font-weight:700;line-height:1.35;min-height:2.2em}.mx-ch small{color:var(--mute);font-weight:700;font-size:.74rem}.mx-ch.mxD{--c:#1fbf75;border-color:#1fbf7566}.mx-ch.mxP{--c:#1f7ae0}.mx-ch.mxN .mxr{opacity:.7}.mx-ch.cur{border-color:var(--rose);box-shadow:0 0 0 3px #e0457b22}.mx-ch.cur::after{content:"أنت هنا";position:absolute;top:-9px;background:var(--rose);color:#fff;font:800 .64rem Cairo,sans-serif;border-radius:99px;padding:1px 9px}
+.mx-mt{display:flex;align-items:center;gap:14px;width:100%;margin:16px 0 0;padding:14px 18px;text-align:start;border:0;border-radius:20px;color:#fff;cursor:pointer;background:linear-gradient(135deg,#6a11cb,#2575fc);box-shadow:0 10px 26px #2575fc44;transition:.2s}.mx-mt:hover{transform:translateY(-3px)}.mx-mt em{font-style:normal;font-size:2rem}.mx-mt span{flex:1}.mx-mt b{display:block;font-size:1.1rem}.mx-mt small{display:block;opacity:.9;font-size:.8rem;margin-top:2px}.mx-mt i{font-style:normal;background:#ffffff2e;border-radius:99px;padding:6px 14px;font-weight:800;font-size:.85rem}
 .mx-tl{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}.mx-t{display:flex;flex-direction:column;align-items:center;gap:4px;background:var(--card);border:1.5px solid #1fbf7555;border-radius:18px;padding:14px 8px;font-weight:800;font-size:.88rem;transition:.2s}.mx-t:hover{transform:translateY(-3px);border-color:#1fbf75;box-shadow:0 10px 22px #1fbf7522}.mx-t em{font-style:normal;font-size:1.7rem}
 .mx-bd{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}.mx-bc{text-align:center;border-radius:20px;padding:16px 12px;background:linear-gradient(160deg,var(--card),var(--bg));border:1.5px solid var(--line);position:relative;overflow:hidden}.mx-bc em{display:block;font-style:normal;font-size:2.6rem;animation:mxg 2.4s infinite,mxf 3s ease-in-out infinite}.mx-bc h4{margin:4px 0 2px;font-size:.9rem;color:var(--mute)}.mx-bc b{display:block;font-size:1.1rem}.mx-bc small{color:var(--teal);font-weight:800}
 .mx-up{display:grid;gap:8px}.mx-up div{display:flex;gap:10px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 12px}.mx-up i{font-style:normal;background:#e0457b;color:#fff;border-radius:99px;font:800 .68rem Cairo,sans-serif;padding:1px 9px;flex:none;margin-top:3px}.mx-up i.o{background:var(--line);color:var(--mute)}.mx-up p{margin:0;font-size:.85rem;color:var(--mute)}
@@ -4313,6 +4361,7 @@ html[dir=ltr] #mxdh{transform:translateX(130%)}#mxdh.in,html[dir=ltr] #mxdh.in{t
 const API='';
 /* ===== تحديثات المنصة: أضف سطر جديد في أول القايمة كل ما تحدّث حاجة ===== */
 const UPD=[
+ {id:'u5',tag:'جديد',t:'ليلة الميد تيرم بقت زرار دايم 🎯',b:'المراجعة النهائية والتدريب (الفحص البطني، المهبلي، رعاية المولود) هتلاقيها في أول الصفحة الرئيسية تفتحها في أي وقت.'},
  {id:'u4',tag:'جديد',t:'ابعتلنا رأيك واقتراحاتك 💌',b:'من الصفحة الرئيسية ابعت رأيك، والتطويرات اللي نفسك فيها، والقصور اللي لاحظته، وهتلاقي الرد عليك جوه المنصة. وكمان مساعد مودو بقى روبوت وفيه تذكير بالأذكار والصلاة على النبي ﷺ.'},
  {id:'u3',tag:'جديد',t:'واجهة جديدة للصفحة الرئيسية',b:'رحلة الفصول، تقدّمك في مكان واحد، وأدوات سريعة. وكمان الوضع النهاري والليلي 🌙☀️'},
  {id:'u2',tag:'جديد',t:'شهادات التقدير PDF',b:'بعد ما تخلّص كويز أي فصل تقدر تحمّل شهادة باسمك ودرجتك.'},
@@ -4446,12 +4495,13 @@ window.homeView=function(){const a=act(),nx=a.find(i=>pct(i)<100),go=nx==null?cu
  setTimeout(()=>{paintBd();board();fbLoad()},0);
  return `${nw?`<div class="mx-nb">🆕 ${T('فيه تحديثات جديدة في المنصة','New platform updates')}<button onclick="MX.upd()">${T('شوفها','View')}</button></div>`:''}
 <div class="mx-hero"><div><h2>${T('أهلاً','Hi')} ${esc(nm)||T('يا بطل','there')} 👋</h2><p>${T('كل خطوة النهارده بتقرّبك لتمريض بيعتمد عليه المريض.','Every step today makes you a nurse patients can trust.')}</p><div class="mx-mini"><span><b>${a.filter(i=>pct(i)>=100).length}/${a.length}</b> ${T('فصول','chapters')}</span><span><b>${streak()}🔥</b> ${T('يوم متتالي','day streak')}</span><span><b>${fmt(total())}</b> ${T('مذاكرة','study')}</span></div><div style="margin-top:12px"><button class="mx-btn" onclick="MX.open(${go})">▶ ${nx==null||pct(go)===0?T('ابدأ المذاكرة','Start studying'):T('كمّل من حيث وقفت','Continue')}</button><button class="mx-btn g" onclick="MX.stats()">📊 ${T('إحصائياتي','My stats')}</button></div></div><div class="mx-ring" style="--p:${O}"><div style="position:relative;text-align:center"><b>${O}%</b><small>${T('إنجازك','done')}</small></div></div><svg class="ecg" viewBox="0 0 900 60" preserveAspectRatio="none"><path d="M0 30H260l14-22 18 46 16-40 10 16H520l14-22 18 46 16-40 10 16H900" fill="none" stroke="#fff" stroke-width="2.5"/></svg></div>
+<button class="mx-mt" onclick="MX.midterm()"><em>🎯</em><span><b>${T('ليلة الميد تيرم','Midterm Night')}</b><small>${T('المراجعة النهائية + التدريب (الفحص البطني · المهبلي · رعاية المولود)','Final review + practice (abdominal · vaginal exam · newborn care)')}</small></span><i>${T('افتح ◀','Open ▶')}</i></button>
 <div class="mx-sec">🗺️ ${T('رحلتك في المنصة','Your journey')}<small>${T('اختار الفصل وابدأ','pick a chapter')}</small></div><div class="mx-jr">${CH.map((c,i)=>T0(i)).join('')}</div>
 <div class="mx-sec">🎯 ${T('أدوات الفصل الحالي','Current chapter tools')}<small>${esc(pick(CH[cur]))}</small></div><div class="mx-tl">${[['📖',T('الدرس','Lesson'),"setTab('lesson')"],['🎬',T('الفيديو','Video'),"setTab('video')"],['🖼️',T('الإنفوجراف','Infographic'),"setTab('info')"],['📝',T('اختبار الفصل','Chapter quiz'),"setTab('quiz')"],['🧮',T('الحاسبات','Calculators'),'go(-1)']].map(x=>`<button class="mx-t" onclick="${x[2]}"><em>${x[0]}</em>${x[1]}</button>`).join('')}</div>
 <div class="mx-sec">💎 ${T('الأدوات المتقدمة','Advanced tools')}</div>${premHtml()}
 <div class="mx-sec">🏆 ${T('لوحة الشرف','Hall of fame')}</div><div class="mx-bd" id="mxbd"></div>
 ${fbCard()}<div class="mx-sec">🔔 ${T('آخر التحديثات','Latest updates')}<small><a href="#" onclick="MX.upd();return false">${T('الكل','all')}</a></small></div><div class="mx-up">${UPD.slice(0,3).map((u,i)=>`<div><i class="${i>1?'o':''}">${u.tag}</i><span><b>${esc(u.t)}</b><p>${esc(u.b)}</p></span></div>`).join('')}</div>`};
-window.MX={cert,stats,upd,fb:fbForm,inbox:fbInbox,open:i=>{openLesson(i)},guide:()=>guide(),theme:()=>theme(root.getAttribute('data-theme')==='dark'?'light':'dark')};
+window.MX={midterm:()=>{if(window.openMidtermReview)openMidtermReview()},cert,stats,upd,fb:fbForm,inbox:fbInbox,open:i=>{openLesson(i)},guide:()=>guide(),theme:()=>theme(root.getAttribute('data-theme')==='dark'?'light':'dark')};
 /* ===== topbar buttons ===== */
 function bar(){const tr=$('.topr');if(!tr||$('#mxg'))return;tr.insertAdjacentHTML('afterbegin',`<div class="mxg" id="mxg"><button class="mxb" id="mxth" title="Theme"></button><button class="mxb" id="mxst" title="إحصائياتي">📊</button><button class="mxb" id="mxbl" title="التحديثات">🔔<span class="bd"></span></button><button class="mxb" id="mxfb" title="رسائلي وردودي">${ENV(22)}<span class="bd" hidden></span></button></div>`);$('#mxth').onclick=MX.theme;$('#mxst').onclick=stats;$('#mxbl').onclick=upd;$('#mxfb').onclick=fbInbox;theme(root.getAttribute('data-theme'));badge();
  {const bx=document.createElement('div');bx.className='mxbox';bx.id='mxbox';tr.insertBefore(bx,tr.firstChild);const vc=$('#vc'),tl=tr.querySelector('.tools'),sp=()=>{const i=document.createElement('i');i.className='mxsep';return i};if(vc){bx.appendChild(vc);bx.appendChild(sp())}if(tl){bx.appendChild(tl);bx.appendChild(sp())}bx.appendChild($('#mxg'))}
@@ -4876,7 +4926,7 @@ function chk(){let ok=false;try{ok=window.MODOGATE&&MODOGATE.authed()}catch(e){}
 if(!ok){try{sessionStorage.removeItem('mt_seen')}catch(e){}W.classList.remove('on');return}
 let s=0;try{s=sessionStorage.getItem('mt_seen')}catch(e){}if(s)return;try{sessionStorage.setItem('mt_seen','1')}catch(e){}
 let n='';try{n=(JSON.parse(localStorage.getItem('modo_auth')||'null')||{}).name||''}catch(e){}
-ask(n.replace(/[<>&"]/g,''))}
+}
 window.addEventListener('modo-auth',()=>setTimeout(chk,500));setTimeout(chk,800);
 window.openMidtermReview=()=>{win();W.classList.add('on')};
 })();
